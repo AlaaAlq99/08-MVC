@@ -1,0 +1,27 @@
+﻿using GymManagmentSystem_DAL.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace GymManagmentSystem_DAL.Data.Configurations
+{
+    public class SessionConfigurations : IEntityTypeConfiguration<Session>
+    {
+        public void Configure(EntityTypeBuilder<Session> builder)
+        {
+
+            builder.Property(s => s.EndDate)
+       .HasComputedColumnSql("DATEADD(hour, 1, [StartDate])", stored: true);
+            builder.ToTable(tb =>
+            {
+                tb.HasCheckConstraint("CapacityCheck", "Capacity Between 1 and 25");
+                tb.HasCheckConstraint("EndDateCheck", "EndDate > StartDate");
+         
+            });
+        }
+    }
+}
