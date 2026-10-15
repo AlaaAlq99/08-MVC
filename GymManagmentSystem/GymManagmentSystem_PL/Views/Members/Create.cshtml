@@ -1,6 +1,16 @@
 ﻿@model CreateMemberViewModel
 
-
+@{
+    ViewData["Title"] = "Create Member";
+}
+ @if (TempData["ErrorMessage"] != null)
+        {
+            <div id="Alert" class="alert alert-danger alert-dismissible fade show">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+               @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
 <div class="container">
     <main role="main" class="pb-3">
 
@@ -8,7 +18,7 @@
             <h3 class="text-primary-color">Add Member</h3>
         </header>
         <form asp-controller="Members" asp-action="Create" method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <!-- Step navigation -->
             <ul class="nav nav-tabs mb-4" id="addMemberTabs" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -33,25 +43,31 @@
                         <div class="col-12 col-md-6">
                             <label asp-for="Name" class="form-label">Name</label>
                             <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                         <div class="col-12 col-md-6">
                             <label asp-for="Email" class="form-label">Email</label>
                             <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>    
                         </div>
                         <div class="col-12 col-md-6">
                             <label asp-for="Phone" class="form-label">Phone</label>
                             <input asp-for="Phone" class="form-control" />
+                            <span asp-validation-for="Phone" class="text-danger"></span> 
                         </div>
                         <div class="col-12 col-md-6">
                             <label asp-for="DateOfBirth" class="form-label">DateOfBirth</label>
                             <input asp-for="DateOfBirth"  class="form-control"  />
+                            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
                         </div>
                         <div class="col-12 col-md-6">
                             <label asp-for="Gender"  class="form-label">Gender</label>
+                           
                             <select asp-for="Gender" class="form-select" asp-items="Html.GetEnumSelectList(typeof(Gender))">
                                 <option value="">-- Select Gender --</option>
                               
                             </select>
+                            <span asp-validation-for="Gender" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="section-header mb-3 mt-4">
@@ -63,15 +79,18 @@
                         <div class="col-12 col-md-6">
                             <label asp-for="BuildingNumber" class="form-label">BuildingNumber</label>
                             <input asp-for="BuildingNumber" class="form-control" />
+                           <span asp-validation-for="BuildingNumber" class="text-danger"></span>
                         </div>
 
                         <div class="col-12 col-md-6">
                             <label asp-for="Street" class="form-label">Street</label>
                             <input asp-for="Street"  class="form-control" />
+                            <span asp-validation-for="Street" class="text-danger"></span>
                         </div>
                         <div class="col-12 col-md-6">
                             <label asp-for="City"  class="form-label">City</label>
                             <input asp-for="City" class="form-control" />
+                            <span asp-validation-for="City" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -82,11 +101,13 @@
                         <div class="col-12 col-md-6">
                             <label asp-for="HealthRecordViewModel.Height" class="form-label">Height</label>
                             <input asp-for="HealthRecordViewModel.Height" class="form-control" />
+                            <span asp-validation-for="HealthRecordViewModel.Height" class="text-danger"></span>
                         </div>
 
                         <div class="col-12 col-md-6">
                             <label asp-for="HealthRecordViewModel.Weight" class="form-label">Weight</label>
                             <input asp-for="HealthRecordViewModel.Weight" class="form-control" />
+                            <span asp-validation-for="HealthRecordViewModel.Weight" class="text-danger"></span>
                         </div>
 
                         <div class="col-12 col-md-6">
@@ -102,6 +123,7 @@
                                 <option>AB+</option>
                                 <option>AB-</option>
                             </select>
+                               
                         </div>
                         <div class="col-12 col-md-6">
                             <label asp-for="HealthRecordViewModel.Note" class="form-label">Note</label>
@@ -126,8 +148,9 @@
     </main>
 </div>
 @section scripts{
-<script src="../js/jquery.validate.min.js"></script>
-<script src="../js/jquery.validate.unobtrusive.min.js"></script>
+    <partial name="_ValidationScriptsPartial.cshtml" />
+    <partial name="_Alret.cshtml" />
+
 <script>
     // Preview photo before upload
     document.getElementById('photoInput').addEventListener('change', function (e) {

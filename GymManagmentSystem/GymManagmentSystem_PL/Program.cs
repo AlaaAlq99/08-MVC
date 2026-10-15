@@ -23,8 +23,10 @@ namespace GymManagmentSystem_PL
             });
 
             
-            builder.Services.AddScoped(typeof(IRepository<,>),typeof(Repository<,>));
+            builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
             builder.Services.AddScoped<IMemberServices,MemberServices>();
+            builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+       
             var app = builder.Build();
 
 

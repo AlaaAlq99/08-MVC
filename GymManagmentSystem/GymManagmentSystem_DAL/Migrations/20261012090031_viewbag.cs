@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace GymManagmentSystem_DAL.Data.Migrations
+namespace GymManagmentSystem_DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class viewbag : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -104,8 +104,8 @@ namespace GymManagmentSystem_DAL.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    hight = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    width = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    hight = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    width = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     bloodType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MemberId = table.Column<int>(type: "int", nullable: false),

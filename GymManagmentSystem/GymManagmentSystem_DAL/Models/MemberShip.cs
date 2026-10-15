@@ -15,10 +15,12 @@ namespace GymManagmentSystem_DAL.Models
 
         public DateTime EndDate { set; get; }
 
-        public string Status => EndDate < DateTime.Now ? "Expired" : "Active";
+        public string Status => IsActive? "Active" : "Expired";
 
-        public bool IsActive => EndDate < DateTime.Now;
+        public bool IsActive => EndDate > DateTime.Now || CreatedAt <= DateTime.Now;
 
 
     }
 }
+
+

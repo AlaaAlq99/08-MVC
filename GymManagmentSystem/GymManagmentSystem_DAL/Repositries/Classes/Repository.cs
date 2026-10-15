@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GymManagmentSystem_DAL.Repositries.Classes
 {
-    public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : BaseEntity, new()
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity, new()
     {
         protected readonly GymDbContext _dbContext;
         protected readonly DbSet<TEntity> _set;
@@ -17,39 +17,41 @@ namespace GymManagmentSystem_DAL.Repositries.Classes
             _dbContext = dbContext;
             _set = _dbContext.Set<TEntity>();
         }
-
+        public IQueryable<TEntity> GetAll(bool traking = false)
+        {
+            return traking ? _set : _set.AsNoTracking();
+        }
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             return await _set.AsNoTracking().ToListAsync();
         }
 
-        public async Task<TEntity?> GetByIdAsync(TKey id)
+        public async Task<TEntity?> GetByIdAsync(int id)
         {
             return await _set.FindAsync(id);
         }
-
-        public async Task<int> AddAsync(TEntity entity)
+       
+        public async Task AddAsync(TEntity entity)
         {
             await _set.AddAsync(entity);
-            return  await _dbContext.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(TEntity entity)
         {
             _set.Update(entity);
-            await _dbContext.SaveChangesAsync();
+         
         }
 
-        public async Task DeleteAsync(TKey id)
+        public async Task DeleteAsync(int id)
         {
             var entity = await GetByIdAsync(id);
             if (entity != null)
             {
                 _set.Remove(entity);
-                await _dbContext.SaveChangesAsync();
+             
             }
         }
 
-      
+
     }
 }

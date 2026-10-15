@@ -10,9 +10,9 @@ namespace GymManagementSystem_MVC.Controllers
 {
     public class PlansController : Controller
     {
-        private IRepository<Plan,int> _PlanReposatry;
+        private IRepository<Plan> _PlanReposatry;
 
-        public PlansController(IRepository<Plan,int> PlanReposatry)
+        public PlansController(IRepository<Plan> PlanReposatry)
         {
             _PlanReposatry = PlanReposatry;
         }

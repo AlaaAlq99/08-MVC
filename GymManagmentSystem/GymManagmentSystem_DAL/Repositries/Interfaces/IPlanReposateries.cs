@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GymManagmentSystem_DAL.Repositries.Interfaces
 {
-    public interface IPlanReposateries: IRepository<Plan,int>
+    public interface IPlanReposateries: IRepository<Plan>
     {
         public Task<IEnumerable<Plan>> GetwithAllMemnershipAsync(bool tracking = false);
     }

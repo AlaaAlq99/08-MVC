@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GymManagmentSystem_DAL.Repositries.Classes
 {
-    public class PlanReposatry : Repository<Plan,int>,IPlanReposateries
+    public class PlanReposatry : Repository<Plan>,IPlanReposateries
     {
         public PlanReposatry(GymDbContext dbContext) : base(dbContext)
         {
