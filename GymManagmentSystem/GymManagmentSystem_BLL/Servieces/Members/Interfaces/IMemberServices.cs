@@ -1,17 +1,18 @@
-﻿using GymManagmentSystem_BLL.Servieces.Members.ViewModels;
+﻿using GymManagmentSystem_BLL.Common;
+using GymManagmentSystem_BLL.Servieces.Members.ViewModels;
 using System.Drawing.Printing;
 namespace GymManagmentSystem_BLL.Servieces.Members.Interfaces
 {
     public interface IMemberServices
     {
-        public Task<IEnumerable<MemberViewModel>> GetMembersAsync();
-        public Task<bool> AddMemberAsync(CreateMemberViewModel model);
+        public Result<IEnumerable<MemberViewModel>> GetMembersAsync();
+        public Task<Result> AddMemberAsync(CreateMemberViewModel model, string webRootPath);
 
-        public Task<MemberDetailsViewModel?> GetMemberDetailsAsync(int? id);
-        public  Task<HealthRecordViewModel?> GetHealthRecordDetailsAsync(int? id);
-        public Task<MemderEditDetailsViewModel> GetMemberToUpdateAsync(int? id);
+        public Task<Result<MemberDetailsViewModel?>> GetMemberDetailsAsync(int? id);
+        public  Task<Result<HealthRecordViewModel?>> GetHealthRecordDetailsAsync(int? id);
+        public Task<Result<MemderEditDetailsViewModel>> GetMemberToUpdateAsync(int? id);
 
-        public Task<bool> MemberUpdeteAsync (MemderEditDetailsViewModel model);
-        public Task<bool> DeleteMemberAsync(int? id);
+        public Task<Result> MemberUpdeteAsync (MemderEditDetailsViewModel model);
+        public Task<Result> DeleteMemberAsync(int? id);
     }
 }

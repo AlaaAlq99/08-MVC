@@ -1,4 +1,5 @@
 ﻿using GymManagmentSystem_DAL.Models;
+using System.Linq.Expressions;
 
 namespace GymManagmentSystem_DAL.Repositries.Interfaces
 {
@@ -10,5 +11,11 @@ namespace GymManagmentSystem_DAL.Repositries.Interfaces
        public Task AddAsync(TEntity entity);
        public Task UpdateAsync(TEntity entity);
        public Task DeleteAsync(int id);
+
+
+        public Task<int> CountAsync(Expression<Func<TEntity,bool>?>  condition = null);
+
+
+
     }
 }

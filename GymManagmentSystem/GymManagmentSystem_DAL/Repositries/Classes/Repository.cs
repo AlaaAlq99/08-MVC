@@ -3,6 +3,7 @@ using GymManagmentSystem_DAL.Models;
 using GymManagmentSystem_DAL.Repositries.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace GymManagmentSystem_DAL.Repositries.Classes
@@ -51,6 +52,12 @@ namespace GymManagmentSystem_DAL.Repositries.Classes
              
             }
         }
+
+        public async Task<int> CountAsync(Expression<Func<TEntity, bool>?> condition = null)
+        {
+            return condition == null ? await _set.AsNoTracking().CountAsync() : await _set.AsNoTracking().CountAsync(condition);
+        }
+
 
 
     }

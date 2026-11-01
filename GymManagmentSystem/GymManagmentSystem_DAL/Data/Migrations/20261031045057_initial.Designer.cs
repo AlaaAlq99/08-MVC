@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace GymManagmentSystem_DAL.Migrations
+namespace GymManagmentSystem_DAL.Data.Migrations
 {
     [DbContext(typeof(GymDbContext))]
-    [Migration("20261012090031_viewbag")]
-    partial class viewbag
+    [Migration("20261031045057_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -280,9 +280,8 @@ namespace GymManagmentSystem_DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Capacity")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Capacity")
+                        .HasColumnType("int");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");

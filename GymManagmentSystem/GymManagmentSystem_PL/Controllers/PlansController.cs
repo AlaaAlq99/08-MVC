@@ -3,13 +3,17 @@ using GymManagmentSystem_DAL.Data.Context;
 using GymManagmentSystem_DAL.Models;
 using GymManagmentSystem_DAL.Repositries.Classes;
 using GymManagmentSystem_DAL.Repositries.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace GymManagementSystem_MVC.Controllers
 {
+    [Authorize]
+
     public class PlansController : Controller
     {
+
         private IRepository<Plan> _PlanReposatry;
 
         public PlansController(IRepository<Plan> PlanReposatry)
@@ -30,5 +34,15 @@ namespace GymManagementSystem_MVC.Controllers
             if (plan is null) return RedirectToAction(nameof(Index));
             return View(plan);
         }
+
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+
+        //}
+        //[HttpPost]
+        //public async Task<IActionResult> Edit(int? id, Plan plan)
+        //{
+
+        //}
     }
 }

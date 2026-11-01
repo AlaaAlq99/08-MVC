@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,8 @@ namespace GymManagmentSystem_DAL.Models
 {
     public class Member: GymUser
     {
+
+   
         public string? photo { set; get; }
         public HealthRecord healthRecord { set; get; }
 

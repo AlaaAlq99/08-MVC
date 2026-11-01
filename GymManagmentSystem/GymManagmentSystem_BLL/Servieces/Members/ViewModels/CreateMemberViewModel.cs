@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,10 @@ namespace GymManagmentSystem_BLL.Servieces.Members.ViewModels
 {
     public class CreateMemberViewModel
     {
+        [Required(ErrorMessage = "PhotoFile Is Required")]
+        [Display(Name = "Profile photo")]
+        public IFormFile PhotoFile { set; get; } = default!;
+
         [Required(ErrorMessage = "Name Is Required")]
         [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Name can only contain letters and spaces")]
         public string Name { get; set; } = default!;

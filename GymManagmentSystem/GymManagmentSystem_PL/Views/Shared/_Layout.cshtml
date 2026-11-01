@@ -35,17 +35,23 @@
                                 <a class="nav-link active px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page"
                                    href="https://localhost:7075">Home</a>
                             </li>
+                            @if (User.IsInRole("SuperAdmin"))
+                                {
+                                     <li class="nav-item">
+                                <a class="nav-link  px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" asp-controller="Members" asp-action="Index">Members</a>
+                            </li>
+                                }
+                               
                             <li class="nav-item">
-                                <a class="nav-link  px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" href="https://localhost:7075/members">Members</a>
+                                <a class="nav-link  px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" asp-controller="Trainers" asp-action="Index">Trainers</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link  px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" href="https://localhost:7075/trainers">Trainers</a>
+                                <a class="nav-link  px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" asp-controller="Sessions" asp-action="Index">Sessions</a>
                             </li>
+
+
                             <li class="nav-item">
-                                <a class="nav-link  px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" href="https://localhost:7075/sessions">Sessions</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" href="https://localhost:7075/plans">Plans</a>
+                                <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" asp-controller="Plans" asp-action="Index">Plans</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page"
@@ -58,9 +64,9 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <form href="\Account\Logout" method="post" class="d-inline">
+                                <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
                                     <button type="submit"
-                                            class="btn btn-link nav-link px-3 py-2 mx-2 fw-bolder fs-5 text-black-alternative">
+                                            class="btn btn-link nav-link px-3 py-2 mx-2 fw-bolder fs-5 text-black-alternative text-decoration-none">
                                         Logout
                                     </button>
                                 </form>

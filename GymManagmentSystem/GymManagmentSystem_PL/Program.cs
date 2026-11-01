@@ -1,19 +1,30 @@
 using GymManagmentSystem_BLL.Servieces.Members.Classes;
 using GymManagmentSystem_BLL.Servieces.Members.Interfaces;
+using GymManagmentSystem_BLL.Servieces.Sessions.Classes;
+using GymManagmentSystem_BLL.Servieces.Sessions.Interfaces;
 using GymManagmentSystem_DAL.Data.Context;
 using GymManagmentSystem_DAL.Models;
 using GymManagmentSystem_DAL.Repositries.Classes;
 using GymManagmentSystem_DAL.Repositries.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using GymManagmentSystem_BLL;
+using GymManagmentSystem_DAL.Data.DataSeeding;
+using GymManagmentSystem_PL.Extentions;
+using GymManagmentSystem_BLL.Servieces.Analytics.Interfaces;
+using GymManagmentSystem_BLL.Servieces.Analytics.Classes;
+using GymManagmentSystem_BLL.Servieces.Attachment;
+using Microsoft.AspNetCore.Identity;
 
 namespace GymManagmentSystem_PL
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
+        
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
@@ -26,9 +37,44 @@ namespace GymManagmentSystem_PL
             builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
             builder.Services.AddScoped<IMemberServices,MemberServices>();
             builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
-       
+            builder.Services.AddScoped<ISessionRepository, SessionRepository>();
+            builder.Services.AddScoped<IAnalyticsServices, AnalyticsServices>();
+            builder.Services.AddScoped<IAttachmentServices, AttachmentServices>();
+            builder.Services.AddScoped<IMemberRepository, MemberRepository>();
+            builder.Services.AddScoped<ISessionServices, SessionServices>();
+            builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfile()));
+
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(config => { 
+            
+               config.Password.RequireDigit = true;
+               config.Password.RequireLowercase = true;
+                config.Password.RequireUppercase = true;
+                config.Password.RequireNonAlphanumeric = true;
+                config.Password.RequiredLength = 6;
+
+                config.User.RequireUniqueEmail = true;
+                config.Lockout.MaxFailedAccessAttempts = 5;
+                config.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+
+
+
+
+            })
+
+                .AddEntityFrameworkStores<GymDbContext>();
+
+            builder.Services.ConfigureApplicationCookie(config =>
+            {
+                config.LoginPath = "/Account/Login";
+                config.AccessDeniedPath = "/Account/AccessDenied";
+                config.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                config.SlidingExpiration = true;
+
+            });
+
             var app = builder.Build();
 
+            await app.seedDataAndApplyPendingMigrations();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -40,13 +86,13 @@ namespace GymManagmentSystem_PL
 
             app.UseHttpsRedirection();
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Account}/{action=Login}/{id?}")
                 .WithStaticAssets();
 
             app.Run();

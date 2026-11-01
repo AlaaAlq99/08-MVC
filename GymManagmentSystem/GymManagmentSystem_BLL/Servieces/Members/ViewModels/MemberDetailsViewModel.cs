@@ -8,6 +8,7 @@ namespace GymManagmentSystem_BLL.Servieces.Members.ViewModels
 {
     public  class MemberDetailsViewModel
     {
+        public int Id { get; set; }
         public string Name { set; get; } = default!;
         public string Email { set; get; } = default!;
         public string Phone { set; get; } = default!;
