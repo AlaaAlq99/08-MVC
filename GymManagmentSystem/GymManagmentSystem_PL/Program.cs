@@ -1,19 +1,21 @@
+using GymManagmentSystem_BLL;
+using GymManagmentSystem_BLL.Servieces.Analytics.Classes;
+using GymManagmentSystem_BLL.Servieces.Analytics.Interfaces;
+using GymManagmentSystem_BLL.Servieces.Attachment;
 using GymManagmentSystem_BLL.Servieces.Members.Classes;
 using GymManagmentSystem_BLL.Servieces.Members.Interfaces;
 using GymManagmentSystem_BLL.Servieces.Sessions.Classes;
 using GymManagmentSystem_BLL.Servieces.Sessions.Interfaces;
+using GymManagmentSystem_BLL.Servieces.Trainers.Classes;
+using GymManagmentSystem_BLL.Servieces.Trainers.Interfaces;
 using GymManagmentSystem_DAL.Data.Context;
+using GymManagmentSystem_DAL.Data.DataSeeding;
 using GymManagmentSystem_DAL.Models;
 using GymManagmentSystem_DAL.Repositries.Classes;
 using GymManagmentSystem_DAL.Repositries.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using GymManagmentSystem_BLL;
-using GymManagmentSystem_DAL.Data.DataSeeding;
 using GymManagmentSystem_PL.Extentions;
-using GymManagmentSystem_BLL.Servieces.Analytics.Interfaces;
-using GymManagmentSystem_BLL.Servieces.Analytics.Classes;
-using GymManagmentSystem_BLL.Servieces.Attachment;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace GymManagmentSystem_PL
 {
@@ -35,6 +37,7 @@ namespace GymManagmentSystem_PL
 
             
             builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
+
             builder.Services.AddScoped<IMemberServices,MemberServices>();
             builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
             builder.Services.AddScoped<ISessionRepository, SessionRepository>();
@@ -42,6 +45,11 @@ namespace GymManagmentSystem_PL
             builder.Services.AddScoped<IAttachmentServices, AttachmentServices>();
             builder.Services.AddScoped<IMemberRepository, MemberRepository>();
             builder.Services.AddScoped<ISessionServices, SessionServices>();
+            builder.Services.AddScoped<ITrainerRepository, TrainerRepository>();
+
+            builder.Services.AddScoped<ITrainerServices, TrainerServices>();
+
+
             builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfile()));
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(config => { 

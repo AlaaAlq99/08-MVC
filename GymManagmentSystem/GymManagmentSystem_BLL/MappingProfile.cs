@@ -2,6 +2,7 @@
 using AutoMapper.Execution;
 using GymManagmentSystem_BLL.Servieces.Members.ViewModels;
 using GymManagmentSystem_BLL.Servieces.Sessions.ViewModel;
+using GymManagmentSystem_BLL.Servieces.Trainers.ViewModels;
 using GymManagmentSystem_DAL.Models;
 
 namespace GymManagmentSystem_BLL
@@ -13,6 +14,7 @@ namespace GymManagmentSystem_BLL
 
             memberProfile();
             SessionProfile();
+            TrianerProfile();
 
         }
 
@@ -67,6 +69,46 @@ namespace GymManagmentSystem_BLL
             CreateMap<CreateSessionViewModel, Session>();
 
 
+        }
+    
+    
+      public void TrianerProfile()
+        {
+            CreateMap<Trainer, TrainersViewModel>()
+                .ForMember(dest => dest.Specialization, opt => opt.MapFrom(src => src.department))
+                .ReverseMap();
+
+
+            CreateMap<Trainer, TrainerDetailsViewModel>()
+                .ForMember(dest => dest.Specialization, opt => opt.MapFrom(src => src.department))
+                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.ToString("d/M/yyyy")))
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address != null
+                  ? $"{src.Address.BuildingNumber}, {src.Address.Street}, {src.Address.City}" : "N/A"));
+
+
+            CreateMap<TrainerCreateViewModels, Trainer>()
+              .ForMember(dest => dest.Address, opt => opt.MapFrom(src => new Address
+              {
+                  BuildingNumber = src.BuildingNumber,
+                  Street = src.Street,
+                  City = src.City
+              }));
+
+
+            CreateMap<Trainer, TrainerUpdateViewModel>()
+                .ForMember(dest => dest.Specialties, opt => opt.MapFrom(src => src.department))
+                .ForMember(dest => dest.BuildingNumber, opt => opt.MapFrom(src => src.Address != null ? src.Address.BuildingNumber : 0))
+                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address != null ? src.Address.Street : ""))
+                .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address != null ? src.Address.City : ""));
+
+             CreateMap<TrainerUpdateViewModel, Trainer>()
+                .ForMember(dest => dest.department, opt => opt.MapFrom(src => src.Specialties))
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => new Address
+                {
+                    BuildingNumber = src.BuildingNumber,
+                    Street = src.Street,
+                    City = src.City
+                }));
         }
     
     }

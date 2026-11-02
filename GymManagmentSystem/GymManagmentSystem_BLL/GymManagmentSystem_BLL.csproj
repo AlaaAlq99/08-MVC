@@ -11,8 +11,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Servieces\Memberships\Classes\" />
+    <Folder Include="Servieces\Memberships\Interfaces\" />
+    <Folder Include="Servieces\Memberships\ViewModels\" />
     <Folder Include="Servieces\Plans\Classes\" />
-    <Folder Include="Servieces\Trainers\" />
+    <Folder Include="Servieces\SessionsSchedule\Classes\" />
+    <Folder Include="Servieces\SessionsSchedule\Interfaces\" />
+    <Folder Include="Servieces\SessionsSchedule\ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>
