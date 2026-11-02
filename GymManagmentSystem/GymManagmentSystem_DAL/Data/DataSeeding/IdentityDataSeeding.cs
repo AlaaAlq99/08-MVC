@@ -4,6 +4,7 @@ using GymManagmentSystem_DAL.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GymManagmentSystem_DAL.Data.DataSeeding
 {
@@ -35,27 +36,27 @@ namespace GymManagmentSystem_DAL.Data.DataSeeding
                 }
             }
 
-            var adminEmail = "alaaaaashraf@gmail.com";
+            var adminEmail = "esraaAshraf@gmail.com";
             var existingAdmin = await userManager.FindByEmailAsync(adminEmail);
             if (existingAdmin == null)
             {
                 var mainAdmin = new ApplicationUser()
                 {
-                    FirstName = "Alaa",
+                    FirstName = "esraa",
                     LastName = "Ashraf",
                     Email = adminEmail,
-                    UserName = "alaaAshraf",
+                    UserName = "esraaAshraf",
                     PhoneNumber = "01167823456"
                 };
 
-                var result = await userManager.CreateAsync(mainAdmin, "P@SW0RD123!");
+                var result = await userManager.CreateAsync(mainAdmin, "P@sW0RD123!");
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(mainAdmin, "Admin");
                 }
                 else
                 {
-                    logger.LogError("Failed to create mainAdmin user.");
+                    logger.LogError($"Failed to create mainAdmin user. Detailed error: {string.Join(", ", result.Errors.Select(e => e.Description))}");
                 }
             }
 

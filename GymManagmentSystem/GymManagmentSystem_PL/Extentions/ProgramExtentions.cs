@@ -31,7 +31,7 @@ namespace GymManagmentSystem_PL.Extentions
 
             //call method 
             await PlanDataSeeding.DataSeedAsync(dbcontext, seedFolderPath, logger);
-                await IdentityDataSeeding.SeedIdentityDataAsync(roleManger, userManger, logger);
+            await IdentityDataSeeding.SeedIdentityDataAsync(roleManger, userManger, logger);
 
 
         }

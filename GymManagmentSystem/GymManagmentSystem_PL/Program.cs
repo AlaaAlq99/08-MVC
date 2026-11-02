@@ -74,18 +74,15 @@ namespace GymManagmentSystem_PL
 
             var app = builder.Build();
 
-            await app.seedDataAndApplyPendingMigrations();
-
-            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
             app.UseRouting();
+
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -95,7 +92,19 @@ namespace GymManagmentSystem_PL
                 pattern: "{controller=Account}/{action=Login}/{id?}")
                 .WithStaticAssets();
 
-            app.Run();
+            try
+            {
+                await app.seedDataAndApplyPendingMigrations();
+            }
+            catch (Exception ex)
+            {
+                var logger = app.Services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occurred while seeding the database.");
+            }
+
+
+      
+                app.Run();
         }
     }
 }
