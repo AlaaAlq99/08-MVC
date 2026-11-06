@@ -98,6 +98,7 @@ namespace GymManagmentSystem_BLL.Servieces.Sessions.Classes
             return Result<IEnumerable<CategorySelectViewModel>>.ok(model);
         }
 
-
+        
+        
     }
 }

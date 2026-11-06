@@ -33,7 +33,7 @@
                         <li class="nav-item">
                             <li class="nav-item">
                                 <a class="nav-link active px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page"
-                                   href="https://localhost:7075">Home</a>
+                                   asp-controller="Home" asp-action="Index">Home</a>
                             </li>
                             @if (User.IsInRole("SuperAdmin"))
                                 {
@@ -54,11 +54,10 @@
                                 <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" asp-controller="Plans" asp-action="Index">Plans</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page"
-                                   href="#">Memberships</a>
+                                <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" asp-controller="MemberShips"  asp-action="Index">Memberships</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" href="#">
+                                <a class="nav-link px-3 py-2 mx-2 fw-bolder fs-5" aria-current="page" asp-controller="BookingSessions" asp-action="Index">
                                     Sessions
                                     Schedule
                                 </a>

@@ -9,9 +9,7 @@ namespace GymManagmentSystem_BLL.Servieces.Trainers.ViewModels
 {
     public class TrainerCreateViewModels
     {
-        //[Required(ErrorMessage = "PhotoFile Is Required")]
-        //[Display(Name = "Profile photo")]
-        //public IFormFile PhotoFile { set; get; } = default!;
+    
 
         [Required(ErrorMessage = "Name Is Required")]
         [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Name can only contain letters and spaces")]
@@ -50,7 +48,7 @@ namespace GymManagmentSystem_BLL.Servieces.Trainers.ViewModels
         [RegularExpression(@"^[a-zA-Z0-9\s]+$", ErrorMessage = "Street can only contain letters, numbers, and spaces")]
         public string Street { get; set; } = default!;
 
-
+        [Required(ErrorMessage = "Specialties Is Required")]
         public Department Specialties { set; get; }
 
     }

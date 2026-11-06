@@ -23,5 +23,19 @@ namespace GymManagmentSystem_DAL.Repositries.Classes
         {
             return await _dbContext.MemberSessions.AsNoTracking().Where(x => x.SessionId == SessionId).CountAsync();
         }
+
+        public async Task<int> GetSessionCapacity(int sessionId)
+        {
+            var session = await _dbContext.Sessions
+                .Where(x => x.Id == sessionId)
+                .FirstOrDefaultAsync();
+
+            return session?.Capacity ?? 0; 
+        }
+        public async Task<bool> IsSessionExistsAsync(int sessionId)
+        {
+            return await _dbContext.Sessions
+                .AnyAsync(x => x.Id == sessionId);
+        }
     }
 }

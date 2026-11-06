@@ -19,8 +19,6 @@
 
   <ItemGroup>
     <Folder Include="MemberPhotoes\" />
-    <Folder Include="Views\MemberShips\" />
-    <Folder Include="Views\SessionsSchedule\" />
   </ItemGroup>
 
 </Project>

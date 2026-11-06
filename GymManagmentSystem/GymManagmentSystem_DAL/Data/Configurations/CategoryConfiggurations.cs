@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GymManagmentSystem_DAL.Data.Configurations
 {
-    internal class CategoryConfiggurations: IEntityTypeConfiguration<Category>
+    public class CategoryConfiggurations: IEntityTypeConfiguration<Category>
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         { 

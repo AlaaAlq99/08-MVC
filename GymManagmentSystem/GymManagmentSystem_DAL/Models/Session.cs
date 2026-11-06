@@ -20,5 +20,6 @@ namespace GymManagmentSystem_DAL.Models
         public int CategoryId { set; get; }
 
         public ICollection<MemberSessions> MemberSessions { set; get; } = default!;
+        public ICollection<BookingSessions> BookingSessions { set; get; } = default!;
     }
 }

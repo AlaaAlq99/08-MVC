@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GymManagmentSystem_DAL.Data.Configurations
 {
-    internal class MemberShipConfigurations : IEntityTypeConfiguration<MemberShip>
+    public class MemberShipConfigurations : IEntityTypeConfiguration<MemberShip>
     {
         public new void Configure(EntityTypeBuilder<MemberShip> builder)
         {
@@ -20,6 +20,16 @@ namespace GymManagmentSystem_DAL.Data.Configurations
             builder.Property(x => x.CreatedAt).HasColumnName("StartDate").HasDefaultValueSql("GetDate()");
 
             builder.HasKey(x => new { x.MemberId, x.PlanId });
+
+            builder.HasOne(x => x.Member)
+                .WithMany(x => x.MemberShips)
+                .HasForeignKey(x => x.MemberId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(x => x.MemberPlan)
+                .WithMany(x => x.MemberShips)
+                .HasForeignKey(x => x.PlanId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     
     }

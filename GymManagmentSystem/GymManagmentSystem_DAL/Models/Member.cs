@@ -17,5 +17,7 @@ namespace GymManagmentSystem_DAL.Models
         public ICollection<MemberShip> MemberShips { set; get; } = default!;
         public ICollection<MemberSessions> MemberSessions { set; get; } = default!;
 
+        public ICollection<BookingSessions> BookingSessions { set; get; } = default!;
+
     }
 }

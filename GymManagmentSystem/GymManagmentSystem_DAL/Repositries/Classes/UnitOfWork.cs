@@ -1,9 +1,5 @@
 ﻿using GymManagmentSystem_DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using GymManagmentSystem_DAL.Repositries.Interfaces;
 using GymManagmentSystem_DAL.Data.Context;
 
@@ -14,14 +10,23 @@ namespace GymManagmentSystem_DAL.Repositries.Classes
         public IMemberRepository memberRepository { get; }
         public ISessionRepository sessionRepository { get; }
         public ITrainerRepository trainerRepository { get; }
+        public IMembershipRepository membershipRepository { get; }
+
+        public IPlanReposateries planRepository { get; }
+
+        public IBookingSessionsRepository bookingSessionsRepository { get; }
         private readonly GymDbContext _dbContext;
 
-        public UnitOfWork(GymDbContext dbContext, IMemberRepository memberRepository, ISessionRepository sessionRepository, ITrainerRepository trainerRepository)
+        public UnitOfWork(GymDbContext dbContext, IMemberRepository memberRepository,
+            ISessionRepository sessionRepository, ITrainerRepository trainerRepository,
+            IMembershipRepository membershipRepository, IBookingSessionsRepository bookingSessionsRepository )
         {
             _dbContext = dbContext;
             this.memberRepository = memberRepository;
             this.sessionRepository = sessionRepository;
             this.trainerRepository = trainerRepository;
+            this.membershipRepository = membershipRepository;
+            this.bookingSessionsRepository = bookingSessionsRepository;
         }
         private readonly Dictionary<string, object> Repos = [];
         public IRepository<TEntity> GetRepository<TEntity>() where TEntity : BaseEntity, new()

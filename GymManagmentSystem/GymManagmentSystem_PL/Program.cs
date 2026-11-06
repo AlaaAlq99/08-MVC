@@ -4,8 +4,12 @@ using GymManagmentSystem_BLL.Servieces.Analytics.Interfaces;
 using GymManagmentSystem_BLL.Servieces.Attachment;
 using GymManagmentSystem_BLL.Servieces.Members.Classes;
 using GymManagmentSystem_BLL.Servieces.Members.Interfaces;
+using GymManagmentSystem_BLL.Servieces.Memberships.Classes;
+using GymManagmentSystem_BLL.Servieces.Memberships.Interfaces;
 using GymManagmentSystem_BLL.Servieces.Sessions.Classes;
 using GymManagmentSystem_BLL.Servieces.Sessions.Interfaces;
+using GymManagmentSystem_BLL.Servieces.SessionsSchedule.Classes;
+using GymManagmentSystem_BLL.Servieces.SessionsSchedule.Interfaces;
 using GymManagmentSystem_BLL.Servieces.Trainers.Classes;
 using GymManagmentSystem_BLL.Servieces.Trainers.Interfaces;
 using GymManagmentSystem_DAL.Data.Context;
@@ -48,7 +52,13 @@ namespace GymManagmentSystem_PL
             builder.Services.AddScoped<ITrainerRepository, TrainerRepository>();
 
             builder.Services.AddScoped<ITrainerServices, TrainerServices>();
+            builder.Services.AddScoped<IMembershipRepository, MembershipRepository>();
+            builder.Services.AddScoped<IMembershipsServices, MembershipsServices>();
 
+            builder.Services.AddScoped<IPlanReposateries, PlanReposatry>();
+
+            builder.Services.AddScoped<IBookingSessionsRepository, BookingSessionsRepository>();
+            builder.Services.AddScoped<IBookingSessionsServices, BookingSessionsServices>();
 
             builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfile()));
 

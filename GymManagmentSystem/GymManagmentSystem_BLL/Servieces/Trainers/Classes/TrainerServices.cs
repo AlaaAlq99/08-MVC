@@ -1,6 +1,7 @@
 ﻿
 
 using AutoMapper;
+using AutoMapper.Execution;
 using GymManagmentSystem_BLL.Common;
 using GymManagmentSystem_BLL.Servieces.Trainers.Interfaces;
 using GymManagmentSystem_BLL.Servieces.Trainers.ViewModels;
@@ -41,7 +42,18 @@ namespace GymManagmentSystem_BLL.Servieces.Trainers.Classes
         }
         public async Task<Result> AddTrainerAsync(TrainerCreateViewModels model)
         {
+            var trainers = _unitOfWork.GetRepository<Trainer>().GetAll();
+
+            bool isNotUniquePhone = trainers.Any(x => x.Phone == model.Phone);
+            bool isNotUniqueEmail = trainers.Any(x => x.Email == model.Email);
+
+            if (isNotUniquePhone)
+                return Result.fail("Phone Already EXisit");
+            if (isNotUniqueEmail)
+                return Result.fail("Email Already EXisit");
+
             var TrainerviewModel = _mapper.Map<Trainer>(model);
+            TrainerviewModel.HireDate = DateTime.Now;
             await _unitOfWork.trainerRepository.AddAsync(TrainerviewModel);
             var result = await _unitOfWork.SaveChangesAsync();
             if (result > 0)
@@ -56,6 +68,16 @@ namespace GymManagmentSystem_BLL.Servieces.Trainers.Classes
         }
         public async Task<Result> UpdateTrainerAsync(TrainerUpdateViewModel model)
         {
+            var trainers = _unitOfWork.GetRepository<Trainer>().GetAll();
+           
+            bool isNotUniquePhone = trainers.Any(x => x.Phone == model.Phone);
+            bool isNotUniqueEmail = trainers.Any(x => x.Email == model.Email);
+
+            if (isNotUniquePhone)
+                return Result.fail("Phone Already EXisit");
+            if (isNotUniqueEmail)
+                return Result.fail("Email Already EXisit");
+
             var trainer = await _unitOfWork.trainerRepository.GetByIdAsync(model.Id);
             if (trainer == null)
             {
@@ -80,6 +102,11 @@ namespace GymManagmentSystem_BLL.Servieces.Trainers.Classes
             if (trainer == null)
             {
                 return Result.fail("Trainer not found");
+            }
+            var trainerHasSessions = await _unitOfWork.trainerRepository.HasSessionsAsync(id);
+            if (trainerHasSessions)
+            {
+                return Result.fail("Cannot delete trainer with existing sessions");
             }
             await _unitOfWork.trainerRepository.DeleteAsync(id);
             var result = await _unitOfWork.SaveChangesAsync();

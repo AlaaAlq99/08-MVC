@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using AutoMapper.Execution;
 using GymManagmentSystem_BLL.Servieces.Members.ViewModels;
+using GymManagmentSystem_BLL.Servieces.Memberships.ViewModels;
 using GymManagmentSystem_BLL.Servieces.Sessions.ViewModel;
+using GymManagmentSystem_BLL.Servieces.SessionsSchedule.ViewModels;
 using GymManagmentSystem_BLL.Servieces.Trainers.ViewModels;
 using GymManagmentSystem_DAL.Models;
+using System.Drawing.Printing;
 
 namespace GymManagmentSystem_BLL
 {
@@ -15,6 +18,7 @@ namespace GymManagmentSystem_BLL
             memberProfile();
             SessionProfile();
             TrianerProfile();
+            BookingSessionsProfile();
 
         }
 
@@ -111,6 +115,24 @@ namespace GymManagmentSystem_BLL
                 }));
         }
     
+    
+      public void MembershipProfile()
+        {
+            CreateMap<MemberShip, MemberShipsViewModel>()
+                .ForMember(dest => dest.MemberName, opt => opt.MapFrom(src => src.Member.Name))
+                .ForMember(dest => dest.PlanName, opt => opt.MapFrom(src => src.MemberPlan.Name))
+                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.CreatedAt.ToString("d/M/yyyy")))
+                .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndDate.ToString("d/M/yyyy")))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
+        }
+        public void BookingSessionsProfile()
+        {
+            CreateMap<BookingSessions, BookingSessionsServicesViewModel>()
+                .ForMember(dest => dest.MemberName, opt => opt.MapFrom(src => src.Member.Name))
+                .ForMember(dest => dest.SessionName, opt => opt.MapFrom(src => src.Session.category))
+                .ForMember(dest => dest.SessionStartDate, opt => opt.MapFrom(src => src.Session.StartDate.ToString("d/M/yyyy")))
+                .ForMember(dest => dest.SessionEndDate, opt => opt.MapFrom(src => src.Session.EndDate.ToString("d/M/yyyy")));
+        }
     }
     
 }
